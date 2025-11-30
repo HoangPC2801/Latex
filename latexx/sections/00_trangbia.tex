@@ -1,0 +1,68 @@
+% Tệp: sections/00_trangbia.tex
+\begin{titlepage}
+    % --- TẠO KHUNG VIỀN ---
+    % Khung viền được căn chỉnh dựa trên lề:
+    % Trái: 3.5cm -> Viền cách mép 3.0cm
+    % Phải: 2.0cm -> Viền cách mép 1.5cm
+    % Trên: 3.5cm -> Viền cách mép 3.0cm
+    % Dưới: 3.0cm -> Viền cách mép 2.5cm
+    \begin{tikzpicture}[overlay,remember picture]
+        \draw [line width=3pt]
+            ($ (current page.north west) + (3.0cm,-3.0cm) $)
+            rectangle
+            ($ (current page.south east) + (-1.5cm,2.5cm) $);
+        \draw [line width=0.5pt]
+            ($ (current page.north west) + (3.1cm,-3.1cm) $)
+            rectangle
+            ($ (current page.south east) + (-1.6cm,2.6cm) $);
+    \end{tikzpicture}
+    
+    \centering
+    % --- PHẦN ĐẦU ---
+    % Dùng vspace âm để đẩy nội dung lên sát lề trên (nếu cần)
+    \vspace*{-0.5cm}
+    
+    {\large \bfseries TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI TP.HCM \par}
+    {\large \bfseries VIỆN CÔNG NGHỆ THÔNG TIN VÀ ĐIỆN, ĐIỆN TỬ \par}
+    
+    \vspace{1cm}
+    
+    % --- LOGO ---
+    % Đường dẫn ảnh đã sửa cho phù hợp cấu trúc thư mục
+    \includegraphics[width=5cm]{img/logoUTH.jpg}
+    
+    \vspace{1.5cm}
+    
+    % --- TÊN BÁO CÁO ---
+    {\fontsize{24pt}{30pt}\selectfont \bfseries BÁO CÁO ĐỒ ÁN \par}
+    \vspace{1cm}
+    
+    {\large \bfseries ĐỀ TÀI: \par}
+    % Tên đề tài in hoa, đậm, cỡ chữ lớn
+    {\fontsize{20pt}{24pt}\selectfont \bfseries STUSHARE - ỨNG DỤNG CHIA SẺ TÀI LIỆU \par}
+    
+    \vfill 
+    
+    % --- THÔNG TIN SINH VIÊN ---
+    % Sử dụng bảng để căn chỉnh thẳng hàng
+    \begin{table}[h]
+        \centering
+        \large
+        \begin{tabular}{l l}
+            \textbf{GVHD:} & \textbf{[Học hàm/Học vị] [Tên GVHD]} \\[0.3cm]
+        \textbf{SVTH:} & \textbf{Đào Vũ Dũng} \\
+                       & MSSV: 0672 0500 1514 \\[0.2cm]
+                       & \textbf{Phạm Công Hoàng} \\
+                       & MSSV: 0642 0500 4128 \\[0.2cm]
+                       & \textbf{Nguyễn Quốc Thiện} \\
+                       & MSSV: [Mã số SV 3] \\
+        \end{tabular}
+    \end{table}
+    
+    \vfill
+    
+    % --- NGÀY THÁNG ---
+    {\large \bfseries TP. HỒ CHÍ MINH, NĂM 2025}
+    \vspace{1cm}
+
+\end{titlepage}
