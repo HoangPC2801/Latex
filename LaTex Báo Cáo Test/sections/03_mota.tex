@@ -1,0 +1,79 @@
+\titleformat{\section}
+  {\fontsize{14pt}{18pt}\bfseries}
+  {}{0em}{}
+  [\titlerule]
+
+
+\section*{DỰ ÁN: STUSHARE - ỨNG DỤNG CHIA SẺ TÀI LIỆU}
+\vspace{0.4cm}
+
+\subsection*{Mô Tả Tổng Quan}
+StuShare là ứng dụng di động hỗ trợ sinh viên tìm kiếm, chia sẻ và tải xuống tài liệu học tập, đề thi và bài giảng.  
+Ứng dụng tạo ra một môi trường kết nối, giúp sinh viên hỗ trợ nhau thông qua việc chia sẻ tài liệu, yêu cầu tài liệu và hệ thống bảng xếp hạng đóng góp.
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{img/mau.png}
+\end{center}
+
+\subsection*{Tính Năng Chính}
+\begin{itemize}[leftmargin=1.2cm]
+    \item {Xác thực người dùng:}  
+    Đăng ký, đăng nhập (Email/Mật khẩu, Số điện thoại).  
+    Quên mật khẩu, xác thực OTP.
+
+    \item {Trang chủ \& Hiển thị tài liệu:}  
+    Hiển thị danh sách tài liệu mới, tài liệu đề thi.  
+    Xem chi tiết tài liệu.
+
+    \item {Tương tác \& Tiện ích:}  
+    Tìm kiếm theo từ khóa hoặc tag.  
+    Tải xuống tài liệu qua \textit{DownloadWorker}.  
+    Upload tài liệu lên hệ thống.
+
+    \item {Cộng đồng:}  
+    Tạo và xem dánh sách yêu cầu tìm tài liệu từ người dùng khác.  
+    Bảng xếp hạng xếp hạng thành viên theo mức độ đóng góp.
+
+    \item {Cá nhân \& Cài đặt:}  
+    Quản lý hồ sơ, đổi mật khẩu, bảo mật tài khoản.  
+    Cài đặt giao diện, thông báo.  
+    Nhận thông báo cập nhật và tương tác.
+
+    \item {Quản trị hệ thống:}  
+    Dashboard theo dõi thống kê tổng quan của ứng dụng. Tiếp nhận và xử lý các báo cáo vi phạm nội dung. Quản lý danh sách người dùng và gửi thông báo hệ thống.
+\end{itemize}
+
+\subsection*{Công Nghệ Sử Dụng}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Ngôn ngữ lập trình: Kotlin 
+   \item Giao diện: Jetpack Compose 
+   \item {Kiến trúc:} Model-View-ViewModel + Clean Architecture 
+    \item {Dependency Injection:} Hilt 
+   \item {Xử lý bất đồng bộ:} Coroutines \& Flow 
+   \item {Lưu trữ cục bộ:} Room Database 
+   \item {Kết nối mạng:} Retrofit 2 
+   \item {Tác vụ nền:} WorkManager
+   \item {Backend/Cloud:} Firebase Authentication, Storage, Analytics
+\end{itemize}
+
+\subsection*{Cách Cài Đặt}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Clone mã nguồn: Tải source code từ GitHub về máy.
+    \item Cấu hình Firebase: Tạo dự án trên Firebase Console. Kích hoạt các dịch vụ: Authentication, Firestore Database, Storage. Tải file google-services.json từ Firebase Console và đặt vào thư mục app/ của dự án.
+    \item Đồng bộ hóa (Sync Gradle): Mở Android Studio, chọn File > Sync Project with Gradle Files để tải các thư viện (Hilt, Room, Coil, v.v.).
+    \item Chạy ứng dụng: Kết nối thiết bị thật hoặc mở Emulator, nhấn nút Run.
+\end{itemize}
+
+\subsection*{Định Hướng Phát Triển}
+\begin{itemize}[leftmargin=1.2cm]
+    \item Tích hợp AI kiểm duyệt: Nâng cấp module Admin hiện tại bằng cách tích hợp AI để tự động quét và cảnh báo các tài liệu chứa nội dung không phù hợp hoặc vi phạm bản quyền trước khi cần Admin duyệt thủ công.
+    
+    \item {Tối ưu giao diện:} Nâng cấp UI/UX cho trải nghiệm hiện đại hơn.
+    \item {Cải thiện tìm kiếm:} Tìm kiếm nâng cao theo nhiều tiêu chí, gợi ý thông minh.
+    \item Bình luận, Đánh giá chi tiết: Bổ sung tính năng cho phép người dùng bình luận dưới mỗi tài liệu, thay vì chỉ xếp hạng sao như hiện tại.
+\end{itemize}
+
+\vspace{0.5cm}
+\subsection*{Link Git Dự Án}
+\noindent\url{https://github.com/Dungdao2309/MOBILE}
+

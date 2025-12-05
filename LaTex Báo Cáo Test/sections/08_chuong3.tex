@@ -1,0 +1,209 @@
+% Tệp: sections/08_chuong3.tex
+
+\chapter{XÂY DỰNG VÀ KẾT QUẢ THỰC NGHIỆM}
+\label{ch:thucnghiem}
+
+Chương này trình bày chi tiết về môi trường phát triển, cách thức tổ chức mã nguồn dự án theo kiến trúc Clean Architecture và kết quả thực nghiệm thông qua các kịch bản kiểm thử trên ứng dụng StuShare.
+
+\section{Môi trường cài đặt và Triển khai}
+
+Để phát triển và vận hành ứng dụng StuShare, nhóm thực hiện đã sử dụng các công cụ phần cứng và phần mềm với cấu hình cụ thể như sau:
+
+\subsection{Cấu hình phần cứng}
+\begin{itemize}
+    \item \textbf{Máy tính phát triển:} 
+    \begin{itemize}
+        \item CPU: Intel Core i5/i7 hoặc Apple M1/M2 trở lên.
+        \item RAM: Tối thiểu 16GB (Khuyến nghị để chạy Android Studio và Emulator mượt mà).
+        \item Ổ cứng: SSD 256GB trở lên.
+    \end{itemize}
+    \item \textbf{Thiết bị kiểm thử (Mobile):}
+    \begin{itemize}
+        \item Hệ điều hành: Android 7.0 (Nougat) trở lên (Tương ứng với API Level 24).
+        \item Kết nối mạng: Wifi/4G ổn định để gọi API và Firebase.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Cấu hình phần mềm và Công cụ}
+\begin{table}[h!]
+    \centering
+    \caption{Danh sách công cụ và phiên bản sử dụng}
+    \begin{tabular}{|l|l|p{6cm}|}
+        \hline
+        \textbf{Công cụ/Thư viện} & \textbf{Phiên bản} & \textbf{Mục đích sử dụng} \\
+        \hline
+        Android Studio & Koala / Ladybug & Môi trường phát triển tích hợp (IDE). \\
+        \hline
+        Kotlin & 2.0.0 & Ngôn ngữ lập trình chính. \\
+        \hline
+        JDK & 17 & Java Development Kit yêu cầu bởi Gradle. \\
+        \hline
+        Gradle & 8.x & Công cụ quản lý dự án và build tự động. \\
+        \hline
+        Hilt & 2.51.1 & Dependency Injection (Tiêm phụ thuộc). \\
+        \hline
+        Firebase & BOM 33.1.0 & Authentication (Xác thực) và Backend cơ bản. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Tổ chức mã nguồn}
+
+Dự án được tổ chức theo kiến trúc \textbf{Clean Architecture} kết hợp với việc chia module theo tính năng (Package by Feature). Điều này giúp mã nguồn dễ dàng mở rộng, bảo trì và kiểm thử.
+
+Dưới đây là cây thư mục chính của dự án (trong thư mục \texttt{app/src/main/java/com/example/stushare/}):
+
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+com.example.stushare
+|-- core/                # Các thành phần dùng chung (Core Module)
+|   |-- data/            # Xử lý dữ liệu (Network, Database, Models)
+|   |-- di/              # Cấu hình Hilt (Dependency Injection)
+|   |-- domain/          # Business Logic (UseCases)
+|   |-- utils/           # Các hàm tiện ích (DownloadHelper, Constants)
+|   |-- workers/         # Tác vụ nền (DownloadWorker)
+|
+|-- features/            # Các màn hình chức năng (Feature Modules)
+|   |-- auth/            # Đăng nhập, Đăng ký, Quên mật khẩu
+|   |-- feature_home/    # Trang chủ, hiển thị danh sách tài liệu
+|   |-- feature_search/  # Tìm kiếm và lọc tài liệu
+|   |-- feature_upload/  # Đăng tải tài liệu mới
+|   |-- feature_profile/ # Thông tin cá nhân, cài đặt
+|   |-- feature_leaderboard/ # Bảng xếp hạng thành viên
+|
+|-- ui/theme/            # Cấu hình giao diện (Color, Type, Theme)
+|-- MainActivity.kt      # Activity chính chứa Navigation Graph
+|-- MainApplication.kt   # Class Application khởi tạo Hilt
+
+\end{lstlisting}
+
+\textbf{Giải thích các thành phần chính:}
+\begin{itemize}
+    \item \textbf{core:} Chứa các thành phần cốt lõi không phụ thuộc vào giao diện cụ thể, như \texttt{AppDatabase} (Room), \texttt{ApiService} (Retrofit) và các \texttt{Repository}.
+    \item \textbf{features:} Mỗi thư mục con đại diện cho một tính năng lớn, bên trong chứa đầy đủ các lớp UI (Screen), ViewModel và State riêng biệt.
+    \item \textbf{di (Dependency Injection):} Chứa các Module (\texttt{NetworkModule}, \texttt{DatabaseModule}, \texttt{FirebaseModule}) cung cấp đối tượng cho toàn bộ ứng dụng.
+\end{itemize}
+
+\section{Kết quả đạt được (Demo ứng dụng)}
+
+Phần này trình bày giao diện thực tế của ứng dụng và các kịch bản kiểm thử (Test Cases) cho các chức năng chính.
+
+\subsection{Chức năng Đăng nhập và Xác thực}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        % Thay bằng ảnh chụp màn hình đăng nhập của bạn
+        \includegraphics[width=\linewidth]{img/manhinhchao.jpg} 
+        \caption{Màn hình Chào}
+    \end{minipage}\hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/dangnhapsdt.jpg}
+        \caption{Đăng nhập Số điện thoạil}
+    \end{minipage}\hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/dangky.jpg}
+        \caption{Đăng ký}
+    \end{minipage}
+\end{figure}
+
+\textbf{Kịch bản kiểm thử 1: Đăng nhập thành công}
+\begin{itemize}
+    \item \textbf{Đầu vào:} Người dùng nhập Email và Mật khẩu đúng định dạng đã đăng ký.
+    \item \textbf{Thao tác:} Nhấn nút "Đăng nhập".
+    \item \textbf{Kết quả mong đợi:} Hệ thống xác thực qua Firebase, chuyển hướng vào Màn hình chính (Home) và lưu trạng thái đăng nhập.
+    \item \textbf{Kết quả thực tế:} Đạt (Pass).
+\end{itemize}
+
+\subsection{Chức năng Trang chủ và Xem tài liệu}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{img/giaodientrangchu.jpg} 
+        \caption{Giao diện Trang chủ}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{img/chitiettailieu.jpg}
+        \caption{Chi tiết tài liệu}
+    \end{minipage}
+\end{figure}
+
+\textbf{Kịch bản kiểm thử 2: Tải xuống tài liệu}
+\begin{itemize}
+    \item \textbf{Đầu vào:} Chọn một tài liệu bất kỳ từ trang chủ.
+    \item \textbf{Thao tác:} Nhấn nút "Tải xuống" (Download) ở màn hình chi tiết.
+    \item \textbf{Xử lý hệ thống:} \texttt{DownloadWorker} chạy nền để tải file từ URL.
+    \item \textbf{Kết quả mong đợi:} Hiển thị thông báo (Notification) tiến trình tải và thông báo "Tải xuống thành công" khi hoàn tất.
+    \item \textbf{Kết quả thực tế:} Đạt (Pass).
+\end{itemize}
+
+\subsection{Chức năng Tìm kiếm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{img/manhinhtimkiem.jpg} 
+    \caption{Màn hình Tìm kiếm}
+\end{figure}
+
+\textbf{Kịch bản kiểm thử 3: Tìm kiếm theo từ khóa}
+\begin{itemize}
+    \item \textbf{Đầu vào:} Nhập từ khóa "Lập trình di động" vào thanh tìm kiếm.
+    \item \textbf{Thao tác:} Nhấn Enter hoặc icon Search.
+    \item \textbf{Kết quả mong đợi:} Danh sách hiển thị các tài liệu có chứa từ khóa trong tiêu đề hoặc mô tả. Nếu không có, hiển thị thông báo "Không tìm thấy kết quả".
+    \item \textbf{Kết quả thực tế:} Đạt (Pass).
+\end{itemize}
+
+\subsection{Chức năng Cá nhân và Cài đặt}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{img/hosocanhan.jpg} 
+        \caption{Hồ sơ cá nhân}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{img/manhinhcaidat.jpg}
+        \caption{Màn hình Cài đặt}
+    \end{minipage}
+\end{figure}
+
+\textbf{Kịch bản kiểm thử 4: Đổi mật khẩu}
+\begin{itemize}
+    \item \textbf{Đầu vào:} Nhập mật khẩu cũ và mật khẩu mới (2 lần).
+    \item \textbf{Thao tác:} Nhấn "Lưu thay đổi".
+    \item \textbf{Kết quả mong đợi:} Hệ thống cập nhật mật khẩu trên Firebase Auth và thông báo thành công.
+    \item \textbf{Kết quả thực tế:} Đạt (Pass).
+\end{itemize}
+
+\section{Đánh giá kết quả}
+
+Sau quá trình xây dựng và kiểm thử, nhóm thực hiện tiến hành so sánh kết quả thực tế với các mục tiêu đề ra ban đầu:
+
+\begin{table}[h!]
+    \centering
+    \caption{Bảng đánh giá mức độ hoàn thành}
+    \begin{tabular}{|p{1cm}|p{6cm}|p{3cm}|p{4cm}|}
+        \hline
+        \textbf{STT} & \textbf{Mục tiêu ban đầu} & \textbf{Trạng thái} & \textbf{Ghi chú} \\
+        \hline
+        1 & Xây dựng giao diện người dùng hiện đại bằng Jetpack Compose. & Hoàn thành & Giao diện mượt mà, hỗ trợ Dark Mode. \\
+        \hline
+        2 & Tích hợp đăng nhập/đăng ký qua Firebase. & Hoàn thành & Hỗ trợ cả Google Sign-In. \\
+        \hline
+        3 & Chức năng tải lên và tải xuống tài liệu. & Hoàn thành & Sử dụng WorkManager xử lý tác vụ nền ổn định. \\
+        \hline
+        4 & Tìm kiếm và lọc tài liệu theo thẻ (Tag). & Hoàn thành & Tốc độ phản hồi nhanh. \\
+        \hline
+        5 & Hệ thống gợi ý tài liệu thông minh (AI). & Chưa hoàn thành & Đang ở mức hiển thị tài liệu mới nhất, chưa có thuật toán AI. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Nhận xét chung:} Ứng dụng StuShare đã đáp ứng được khoảng 90\% các yêu cầu chức năng cốt lõi của một nền tảng chia sẻ tài liệu. Các chức năng hoạt động ổn định trên các thiết bị kiểm thử. Một số tính năng nâng cao (như AI Suggestion) sẽ được phát triển trong giai đoạn tiếp theo.

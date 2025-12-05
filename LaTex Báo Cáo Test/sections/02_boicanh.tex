@@ -1,0 +1,74 @@
+\titleformat{\section}
+  {\fontsize{14pt}{18pt}\bfseries}
+  {}{0em}{}
+  [\titlerule]
+
+\section*{BỐI CẢNH VÀ LÝ DO CHỌN ĐỀ TÀI}
+\vspace{0.4cm}
+
+
+\textbf{Bối cảnh:} Trong môi trường đại học và giáo dục hiện đại, nhu cầu tiếp cận các nguồn tài liệu học tập là vô cùng lớn. Hiện nay, việc chia sẻ tài liệu thường diễn ra qua các nhóm chat, Drive cá nhân hoặc các diễn đàn mạng xã hội. Tuy nhiên, các phương thức này thường gặp hạn chế như: tài liệu bị trôi, khó tìm kiếm lại theo chủ đề, không được sắp xếp khoa học và thiếu sự kiểm duyệt về chất lượng.
+
+\textbf{Lý do chọn đề tài:} Xuất phát từ thực tế đó, nhóm quyết định phát triển ứng dụng \textit{StuShare} – một nền tảng di động chuyên biệt cho việc chia sẻ và tìm kiếm tài liệu học tập. Đề tài này được chọn vì tính cấp thiết và khả năng ứng dụng thực tế cao, giải quyết trực tiếp \textit{nỗi đau} của sinh viên trong việc tìm kiếm nguồn tài liệu ôn thi và học tập chất lượng.
+
+\textbf{Tầm quan trọng:} Đồ án không chỉ giúp sinh viên tiết kiệm thời gian tìm kiếm tài liệu mà còn xây dựng một cộng đồng học tập tích cực, nơi kiến thức được sẻ chia và lan tỏa. Đồng thời, việc phát triển ứng dụng giúp nhóm áp dụng các công nghệ lập trình di động hiện đại vào giải quyết bài toán thực tế.
+
+
+\subsection*{Mục Tiêu Của Đồ Án}
+
+\noindent\textbf{Mục tiêu tổng quát:} Xây dựng một ứng dụng di động hoàn chỉnh trên nền tảng Android, hoạt động ổn định, giao diện hiện đại, hỗ trợ người dùng (sinh viên) chia sẻ, lưu trữ và tìm kiếm tài liệu học tập hiệu quả; đồng thời tích hợp các công cụ quản lý cơ bản dành cho quản trị viên ngay trên thiết bị di động.
+
+\noindent\textbf{Mục Tiêu Cụ Thể:}
+\begin{itemize}
+    \item \textbf{Xây dựng kho tài liệu:} Cho phép người dùng đăng tải và tải xuống các định dạng tài liệu phổ biến.
+    \item \textbf{Tối ưu hóa tìm kiếm:} Cung cấp công cụ tìm kiếm mạnh mẽ theo từ khóa và thẻ (tag).
+    \item \textbf{Tương tác cộng đồng:} Tính năng ``Yêu cầu tài liệu'' và ``Bảng xếp hạng'' để vinh danh người đóng góp.
+    \item \textbf{Trải nghiệm người dùng:} Giao diện hiện đại với Jetpack Compose.
+    \item \textbf{Quản trị hệ thống:} Cung cấp Dashboard trên mobile cho Admin để xem thống kê và xử lý các báo cáo vi phạm.
+\end{itemize}
+
+
+\subsection*{Phạm Vi Nghiên Cứu}
+
+\noindent\textbf{Đối tượng nghiên cứu:}
+\begin{itemize}
+    \item Nhu cầu chia sẻ tài liệu của sinh viên.
+    \item Kiến trúc phần mềm Clean Architecture áp dụng trong Android.
+    \item Các công nghệ phát triển ứng dụng di động Android.
+\end{itemize}
+
+\noindent\textbf{Phạm vi chức năng:}
+\begin{itemize}
+    \item \textbf{Xác thực:} Đăng ký, đăng nhập, quên mật khẩu.
+    \item \textbf{Tài liệu:} Hiển thị tài liệu, đăng tải, tải xuống.
+    \item \textbf{Tìm kiếm:} Tìm theo tên hoặc theo tag.
+    \item \textbf{Cộng đồng:} Tạo yêu cầu tài liệu, xem danh sách yêu cầu, bảng xếp hạng.
+    \item \textbf{Cá nhân:} Hồ sơ, cài đặt.
+    \item \textbf{Quản trị:} Xem thống kê, quản lý và xử lý báo cáo vi phạm, quản lý danh sách người dùng.
+\end{itemize}
+
+\noindent\textbf{Giới hạn của đồ án:}
+\begin{itemize}
+    \item Chỉ phát triển trên nền tảng Android.
+    \item Các chức năng Admin được tích hợp phiên bản rút gọn trên Mobile, không xây dựng CMS (trang quản trị) trên nền tảng Web riêng biệt.
+\end{itemize}
+
+
+\subsection*{Phương Pháp Nghiên Cứu}
+
+\noindent\textbf{Thu thập và phân tích yêu cầu:}
+\begin{itemize}
+    \item Tham khảo các ứng dụng chia sẻ tài liệu hiện có.
+    \item Phân tích quy trình upload, duyệt tài liệu, tải tài liệu.
+\end{itemize}
+
+\noindent\textbf{Công nghệ và phương pháp phát triển:}
+\begin{itemize}
+    \item Áp dụng kiến trúc Clean Architecture + Model-View-ViewMode.
+    \item Ngôn ngữ lập trình: Kotlin.
+    \item UI: Jetpack Compose.
+    \item Xử lý bất đồng bộ: Kotlin Coroutines và Flow.
+    \item Lưu trữ: Room (local), Retrofit + Firebase (remote).
+    \item Dependency Injection: Hilt.
+    \item Tác vụ nền: WorkManager
+\end{itemize}

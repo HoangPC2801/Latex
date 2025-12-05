@@ -1,0 +1,175 @@
+% Tệp: sections/10_tailieuthamkhaovaphuluc.tex
+
+% ============================================================
+% PHẦN 1: TÀI LIỆU THAM KHẢO (THỦ CÔNG)
+% ============================================================
+
+% Thêm dòng này để Tài liệu tham khảo hiện trong Mục lục
+\addcontentsline{toc}{chapter}{TÀI LIỆU THAM KHẢO}
+
+% Môi trường tài liệu tham khảo thủ công
+\begin{thebibliography}{99} % Số 99 là ước lượng độ rộng của số thứ tự (cho danh sách < 100 mục)
+
+    \bibitem{kotlin_lang}
+    JetBrains. \textit{Kotlin Programming Language Documentation (v2.0.0)}. 2024. URL: \url{https://kotlinlang.org/docs/home.html}.
+
+    \bibitem{jetpack_compose}
+    Google Developers. \textit{Jetpack Compose: Android's modern toolkit for building native UI}. 2024. URL: \url{https://developer.android.com/compose}.
+
+    \bibitem{hilt_android}
+    Google Developers. \textit{Dependency Injection with Hilt}. 2024. URL: \url{https://developer.android.com/training/dependency-injection/hilt-android}.
+
+    \bibitem{retrofit}
+    Square, Inc. \textit{Retrofit: A type-safe HTTP client for Android and Java}. 2024. URL: \url{https://github.com/square/retrofit}.
+
+    \bibitem{room_db}
+    Android Developers. \textit{Save data in a local database using Room}. 2024. URL: \url{https://developer.android.com/training/data-storage/room}.
+
+    \bibitem{firebase_auth}
+    Google Firebase. \textit{Firebase Authentication Documentation}. 2024. URL: \url{https://firebase.google.com/docs/auth}.
+
+    \bibitem{coil_kt}
+    Coil Contributors. \textit{Coil: Image loading for Android backed by Kotlin Coroutines}. 2024. URL: \url{https://coil-kt.github.io/coil/}.
+
+    \bibitem{workmanager}
+    Android Developers. \textit{Schedule tasks with WorkManager}. 2024. URL: \url{https://developer.android.com/topic/libraries/architecture/workmanager}.
+
+    \bibitem{clean_arch}
+    Robert C. Martin. \textit{Clean Architecture: A Craftsman's Guide to Software Structure and Design}. Prentice Hall, 2017.
+    \bibitem{clean_arch}
+    Hỗ trợ của trí tuệ nhân tạo: Gemini, ChatGPT.
+
+\end{thebibliography}
+
+% ============================================================
+% PHẦN 2: PHỤ LỤC
+% ============================================================
+\appendix % Chuyển đánh số chương thành A, B, C...
+
+% --- PHỤ LỤC A: MÃ NGUỒN ---
+\chapter{MỘT SỐ MÃ NGUỒN QUAN TRỌNG}
+\label{app:source_code}
+
+Trong phần này, nhóm xin trình bày một số đoạn mã nguồn cốt lõi của ứng dụng StuShare, bao gồm cấu hình hệ thống và các lớp xử lý dữ liệu chính.
+
+\section{Cấu hình xây dựng ứng dụng (Build Gradle)}
+Dưới đây là cấu hình các thư viện và phiên bản SDK sử dụng trong dự án:
+
+% Chèn code từ file: app/build.gradle.kts
+\begin{lstlisting}[language=Java, caption={Cấu hình module app (build.gradle.kts)}]
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    // Các plugin khác
+}
+
+android {
+    namespace = "com.example.stushare"
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.example.stushare"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
+    // ...
+}
+\end{lstlisting}
+
+\section{Lớp xử lý dữ liệu tài liệu (Document Repository)}
+Lớp này chịu trách nhiệm gọi API và xử lý luồng dữ liệu cho các tài liệu học tập.
+
+\begin{lstlisting}[language=Java, caption={Triển khai DocumentRepositoryImpl.kt}]
+class DocumentRepositoryImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val documentDao: DocumentDao
+) : DocumentRepository {
+
+    override suspend fun getDocuments(): Flow<Resource<List<Document>>> = flow {
+        emit(Resource.Loading())
+        try {
+            // Lấy dữ liệu từ Remote API
+            val response = apiService.getAllDocuments()
+        
+            if (response.isSuccessful) {
+                // Lưu vào Local DB và emit success
+                emit(Resource.Success(response.body()))
+            } else {
+                emit(Resource.Error("Lỗi kết nối máy chủ"))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Lỗi không xác định"))
+        }
+    }
+}
+\end{lstlisting}
+
+\section{Màn hình chi tiết tài liệu (UI)}
+Xử lý giao diện hiển thị chi tiết tài liệu cho sinh viên.
+
+\begin{lstlisting}[language=Java, caption={Đoạn mã Composable cho màn hình chi tiết}]
+@Composable
+fun DocumentDetailScreen(
+    viewModel: DocumentDetailViewModel = hiltViewModel(),
+    onNavigateBack: () -> Unit
+) {
+    val state by viewModel.uiState.collectAsState()
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Chi tiết tài liệu") },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = null)
+                    }
+                }
+           )
+        }
+    ) { padding ->
+        Column(modifier = Modifier.padding(padding)) {
+            // Nội dung chi tiết
+            Text(text = state.documentTitle, style = MaterialTheme.typography.h6)
+            Text(text = state.description)
+        }
+    }
+}
+\end{lstlisting}
+
+% --- PHỤ LỤC B: HÌNH ẢNH (ĐÃ SỬA) ---
+\chapter{MỘT SỐ HÌNH ẢNH GIAO DIỆN}
+\label{app:images}
+
+\section{Màn hình giới thiệu (Onboarding)}
+
+\begin{figure}[H]
+    \centering
+    % HÌNH 1
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.95\linewidth]{img/intro1.png} 
+        \caption{Màn hình chào 1}
+    \end{minipage}\hfill
+    % HÌNH 2
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.95\linewidth]{img/intro2.png}
+        \caption{Màn hình chào 2}
+    \end{minipage}\hfill
+    % HÌNH 3
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.95\linewidth]{img/intro3.png}
+        \caption{Màn hình chào 3}
+    \end{minipage}
+\end{figure}
+
+\section{Logo ứng dụng}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{img/app_logo.png} 
+    \caption{Logo chính thức của ứng dụng StuShare}
+\end{figure}

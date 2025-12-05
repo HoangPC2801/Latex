@@ -1,0 +1,220 @@
+% Tệp: main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- CẤU HÌNH CƠ BẢN ---
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1. Cỡ chữ 13pt.
+% 2. twoside: Cấu hình để in 2 mặt
+\documentclass[13pt, a4paper, twoside]{extreport}
+
+% Gói hỗ trợ tiếng Việt
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+
+% --- FONT CHỮ ---
+\usepackage{mathptmx}
+\usepackage{newtxmath}
+
+\usepackage{listings}
+\usepackage{xcolor}
+% Định nghĩa màu sắc cho code
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Cấu hình hiển thị code (Style)
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    extendedchars=true,
+    inputencoding=utf8,
+    literate={à}{{\`a}}1 {ả}{{\'a}}1 {ã}{{\~a}}1 {á}{{\'a}}1 {ạ}{{\d{a}}}1
+         {ă}{{\u{a}}}1 {ằ}{{\`a}}1 {ẳ}{{\'a}}1 {ẵ}{{\~a}}1 {ấ}{{\'a}}1 {ậ}{{\d{a}}}1
+         {è}{{\`e}}1 {ẻ}{{\'e}}1 {ẽ}{{\~e}}1 {é}{{\'e}}1 {ẹ}{{\d{e}}}1
+         {ê}{{\^e}}1 {ề}{{\`e}}1 {ể}{{\'e}}1 {ễ}{{\~e}}1 {ế}{{\'e}}1 {ệ}{{\d{e}}}1
+         {ì}{{\`i}}1 {ỉ}{{\'i}}1 {ĩ}{{\~i}}1 {í}{{\'i}}1 {ị}{{\d{i}}}1
+         {ò}{{\`o}}1 {ỏ}{{\'o}}1 {õ}{{\~o}}1 {ó}{{\'o}}1 {ọ}{{\d{o}}}1
+         {ô}{{\^o}}1 {ồ}{{\`o}}1 {ổ}{{\'o}}1 {ỗ}{{\~o}}1 {ố}{{\'o}}1 {ộ}{{\d{o}}}1
+         {ơ}{{\ow}}1 {ờ}{{\`o}}1 {ở}{{\'o}}1 {ỡ}{{\~o}}1 {ớ}{{\'o}}1 {ợ}{{\d{o}}}1
+         {ù}{{\`u}}1 {ủ}{{\'u}}1 {ũ}{{\~u}}1 {ú}{{\'u}}1 {ụ}{{\d{u}}}1
+         {ư}{{\uw}}1 {ừ}{{\`u}}1 {ử}{{\'u}}1 {ữ}{{\~u}}1 {ứ}{{\'u}}1 {ự}{{\d{u}}}1
+         {ỳ}{{\`y}}1 {ỷ}{{\'y}}1 {ỹ}{{\~y}}1 {ý}{{\'y}}1 {ỵ}{{\d{y}}}1
+         {đ}{{\d{d}}}1 {Đ}{{\d{D}}}1
+}
+
+\lstset{style=mystyle}
+
+% Gói đồ họa và bảng biểu
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{indentfirst} 
+\usepackage{enumitem} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- ĐỊNH DẠNG TRANG (PAGE LAYOUT) ---
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    top=2cm, 
+    bottom=2cm, 
+    inner=3cm, 
+    outer=2cm    
+}
+
+\usepackage{setspace}
+\onehalfspacing 
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{1.27cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- ĐỊNH DẠNG TIÊU ĐỀ (TITLES) ---
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+  {\centering\normalfont\bfseries\fontsize{14pt}{16.8pt}\selectfont} 
+  {\chaptertitlename\ \thechapter} 
+  {0pt} 
+  {\MakeUppercase} 
+
+\titlespacing*{\chapter}{0pt}{-10pt}{20pt}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{13pt}{15.6pt}\selectfont}
+  {\thesection}{1em}{}
+  
+\titlespacing*{\section}{0pt}{6pt}{0pt}
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{13pt}{15.6pt}\selectfont} 
+  {\thesubsection}{1em}{}
+
+\titlespacing*{\subsection}{0pt}{6pt}{0pt}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{13pt}{15.6pt}\selectfont}
+  {\thesubsubsection}{1em}{}
+
+\renewcommand{\thesubsubsection}{\alph{subsubsection}.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- HÌNH ẢNH, BẢNG BIỂU & CAPTION ---
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{caption}
+\usepackage{float} 
+
+\DeclareCaptionFont{size13}{\fontsize{13pt}{15.6pt}\selectfont}
+
+\captionsetup[table]{
+    position=top,
+    justification=raggedright, 
+    singlelinecheck=false,     
+    labelfont={bf, size13},    
+    textfont={bf, size13},     
+    skip=6pt                   
+}
+
+\captionsetup[figure]{
+    position=bottom,
+    justification=centering,   
+    labelfont={bf, size13},
+    textfont={bf, size13},
+    skip=6pt                   
+}
+
+\newcommand{\mysource}[1]{%
+    \vspace{0pt} 
+    \begin{flushright}
+        \fontsize{12pt}{14.4pt}\selectfont \itshape Nguồn: #1
+    \end{flushright}
+    \vspace{6pt} 
+}
+
+% Đánh số theo chương (Hình 2.1, Bảng 3.2)
+\usepackage{chngcntr}
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+
+\addto\captionsvietnamese{%
+  \renewcommand{\figurename}{Hình}%
+  \renewcommand{\tablename}{Bảng}%
+  \renewcommand{\chaptername}{CHƯƠNG}
+  \renewcommand{\listfigurename}{DANH MỤC CÁC HÌNH VẼ} 
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- CÁC GÓI KHÁC & HEADER/FOOTER ---
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage} 
+\renewcommand{\headrulewidth}{0pt}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% [FIX QUAN TRỌNG]: Thêm 'final' để ÉP BUỘC tạo link kể cả khi đang ở chế độ 'draft'
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=cyan, final]{hyperref}
+
+% Lệnh gom nội dung lên trên để tránh khoảng trắng
+\raggedbottom
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- BẮT ĐẦU TÀI LIỆU ---
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{titlepage}
+    \include{sections/00_trangbia}
+\end{titlepage}
+
+% Phần đầu: Đánh số La Mã (i, ii, iii)
+\pagenumbering{roman} 
+
+\input{sections/01_bangphanchiacongviec}
+\include{sections/02_boicanh}
+\include{sections/03_mota}
+
+% 1. Mục lục chính
+\tableofcontents
+
+% 2. Danh mục các hình vẽ
+\listoffigures
+\addcontentsline{toc}{chapter}{DANH MỤC CÁC HÌNH VẼ}
+
+% 3. Danh mục từ viết tắt
+\input{sections/04_vietat}
+
+% Phần nội dung: Đánh số 1, 2, 3 từ Chương 1
+\pagenumbering{arabic} 
+
+\include{sections/05_mordau}
+\include{sections/06_chuong1}
+\include{sections/07_chuong2}
+\include{sections/08_chuong3}
+\include{sections/09_ketluan}
+
+% Tài liệu tham khảo thủ công
+\include{sections/10_tailieuthamkhaovaphuluc}
+
+\end{document}

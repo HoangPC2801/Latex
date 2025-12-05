@@ -1,0 +1,85 @@
+% Tệp: sections/06_chuong1.tex
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{13pt}{15.6pt}\selectfont} % Font chữ
+  {\thesection}{1em}{} % Hiển thị số thứ tự (1.1, 1.2)
+
+\chapter{CƠ SỞ LÝ THUYẾT VÀ CÔNG NGHỆ}
+\label{ch:cosolythuyet}
+
+Chương này trình bày tổng quan về lĩnh vực lập trình thiết bị di động và đi sâu vào phân tích các công nghệ, ngôn ngữ lập trình, framework và công cụ hỗ trợ được sử dụng để phát triển ứng dụng StuShare.
+
+\section{Tổng quan về Lập trình thiết bị di động}
+Lập trình thiết bị di động là quy trình phát triển các ứng dụng phần mềm dành riêng cho các thiết bị cầm tay như điện thoại thông minh hay máy tính bảng. Trong kỷ nguyên số 4.0, thiết bị di động đã trở thành vật bất ly thân, kéo theo sự bùng nổ nhu cầu về các ứng dụng phục vụ học tập, giải trí và công việc.
+
+Hiện nay, có hai nền tảng hệ điều hành di động thống trị thị trường là Android (của Google) và iOS (của Apple). Đồ án này tập trung vào phát triển ứng dụng trên nền tảng **Android**, hệ điều hành phổ biến nhất thế giới với hệ sinh thái mở và cộng đồng lập trình viên đông đảo.
+
+\section{Công nghệ sử dụng}
+Để xây dựng ứng dụng StuShare đảm bảo hiệu năng cao, dễ bảo trì và mở rộng, nhóm thực hiện đã áp dụng các công nghệ và kiến trúc phần mềm hiện đại nhất hiện nay:
+
+\begin{itemize}
+    \item \textbf{Kiến trúc phần mềm:} Clean Architecture kết hợp với mô hình Model-View-ViewModel.
+    \item \textbf{Cơ chế tiêm phụ thuộc (DI):} Google Hilt.
+    \item \textbf{Lập trình bất đồng bộ:} Kotlin Coroutines và Flow.
+    \item \textbf{Giao diện người dùng:} Jetpack Compose (Declarative UI).
+\end{itemize}
+
+\section{Ngôn ngữ lập trình}
+
+\subsection{Kotlin}
+Dự án sử dụng 100\% ngôn ngữ \textbf{Kotlin} (phiên bản 2.0.0). Đây là ngôn ngữ lập trình tĩnh, chạy trên máy ảo Java (JVM), được Google công nhận là ngôn ngữ chính thức (First-class language) để phát triển Android từ năm 2017.
+
+\textbf{Lý do lựa chọn:}
+\begin{itemize}
+    \item \textbf{Ngắn gọn và an toàn:} Kotlin giảm thiểu lượng mã nguồn (boilerplate code) và giải quyết triệt để lỗi NullPointerException (NPE) thông qua cơ chế Null Safety.
+    \item \textbf{Tương thích hoàn toàn với Java:} Có thể sử dụng các thư viện Java hiện có mà không gặp trở ngại.
+    \item \textbf{Hỗ trợ hiện đại:} Kotlin cung cấp Coroutines giúp xử lý các tác vụ bất đồng bộ (như gọi API, truy vấn DB) một cách đơn giản và hiệu quả hơn so với Thread truyền thống.
+\end{itemize}
+
+\section{Framework và Platform}
+
+\subsection{Android Jetpack Compose}
+Thay vì sử dụng XML truyền thống, StuShare sử dụng \textbf{Jetpack Compose} - bộ công cụ hiện đại của Android để xây dựng giao diện người dùng theo cơ chế khai báo (Declarative UI).
+
+\textbf{Ưu điểm:}
+\begin{itemize}
+    \item Tăng tốc độ phát triển UI với ít mã nguồn hơn.
+    \item Dễ dàng tạo các hiệu ứng động (Animation) và hỗ trợ Dark Mode tự động.
+    \item Tương thích tốt với mô hình MVVM và State Management.
+\end{itemize}
+
+\subsection{Hilt (Dependency Injection)}
+Hilt là thư viện tiêm phụ thuộc (Dependency Injection) chuẩn cho Android, được xây dựng dựa trên Dagger. Hilt giúp tự động quản lý vòng đời của các thành phần trong ứng dụng, giảm sự phụ thuộc giữa các lớp và giúp việc kiểm thử dễ dàng hơn.
+
+\subsection{Retrofit}
+Retrofit là một Type-safe HTTP Client mạnh mẽ được sử dụng để kết nối ứng dụng với các Web Service (REST API). Trong đồ án này, Retrofit đóng vai trò giao tiếp với Server để lấy danh sách tài liệu và gửi dữ liệu người dùng.
+
+\section{Hệ quản trị cơ sở dữ liệu}
+
+Hệ thống sử dụng mô hình kết hợp giữa cơ sở dữ liệu cục bộ và đám mây để đảm bảo trải nghiệm người dùng liền mạch (Offline-first app).
+
+\subsection{Room Database (Local)}
+Room là thư viện ORM (Object Relational Mapping) cung cấp lớp trừu tượng trên SQLite.
+\begin{itemize}
+    \item \textbf{Vai trò:} Lưu trữ thông tin người dùng phiên đăng nhập, lịch sử xem tài liệu và cache dữ liệu để ứng dụng có thể hoạt động ngay cả khi mất mạng.
+    \item \textbf{Thành phần:} Entity (Bảng), DAO (Data Access Object), Database.
+\end{itemize}
+
+\subsection{Firebase (Cloud)}
+Firebase là nền tảng phát triển ứng dụng di động của Google. Đồ án sử dụng các dịch vụ sau:
+\begin{itemize}
+    \item \textbf{Firebase Authentication:} Quản lý xác thực người dùng an toàn (Email/Password, Google Sign-In).
+    \item \textbf{Firebase Firestore:} Cơ sở dữ liệu NoSQL đám mây để lưu trữ metadata của tài liệu, thông tin profile người dùng theo thời gian thực.
+    \item \textbf{Firebase Storage:} Lưu trữ các file tài liệu (PDF, DOCX) và hình ảnh avatar.
+\end{itemize}
+
+\section{Công cụ hỗ trợ}
+
+\subsection{Android Studio}
+Môi trường phát triển tích hợp (IDE) chính thức dành cho Android, cung cấp các công cụ biên dịch (Gradle), trình giả lập (Emulator), và công cụ debug mạnh mẽ.
+
+\subsection{Postman}
+Công cụ hỗ trợ kiểm thử API, giúp nhóm kiểm tra tính đúng đắn của các endpoints trước khi tích hợp vào ứng dụng Android.
+
+\subsection{Git và GitHub}
+Sử dụng Git để quản lý phiên bản mã nguồn phân tán và GitHub để lưu trữ, quản lý tiến độ công việc và phối hợp làm việc nhóm hiệu quả.

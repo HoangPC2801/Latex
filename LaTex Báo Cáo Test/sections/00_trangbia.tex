@@ -1,0 +1,77 @@
+% Tệp: sections/00_trangbia.tex
+
+\begin{tikzpicture}[remember picture, overlay]
+    % Khung viền
+    \draw[line width=2pt] 
+        ($(current page.north west) + (3.0cm,-2.0cm)$) 
+        rectangle 
+        ($(current page.south east) + (-2.0cm,2.0cm)$);
+    \draw[line width=0.5pt] 
+        ($(current page.north west) + (3.15cm,-2.15cm)$) 
+        rectangle 
+        ($(current page.south east) + (-2.15cm,2.15cm)$);
+\end{tikzpicture}
+
+\begin{center}
+    % --- Phần Tiêu đề trường ---
+    \begingroup
+        \fontsize{14pt}{15.6pt}\selectfont\bfseries
+        TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI \par
+        THÀNH PHỐ HỒ CHÍ MINH \par
+        VIỆN CÔNG NGHỆ THÔNG TIN VÀ ĐIỆN, ĐIỆN TỬ \par
+    \endgroup
+
+    \vspace{1.0cm} 
+
+    % --- Logo ---
+    \includegraphics[width=5.5cm]{img/logoUTH.jpg} \par
+
+    \vspace{1.0cm} 
+
+    % --- Tên báo cáo ---
+    \begingroup
+        \fontsize{20pt}{24pt}\selectfont\bfseries
+        BÁO CÁO ĐỒ ÁN
+        \par
+    \endgroup
+    
+    \vspace*{0.5cm} 
+
+    % --- Đề tài ---
+    {\large \bfseries ĐỀ TÀI: \par}
+    \vspace*{0.2cm}
+
+    \begingroup
+        \fontsize{20pt}{24pt}\selectfont\bfseries
+        XÂY DỰNG ỨNG DỤNG CHIA SẺ TÀI LIỆU \par
+        STUSHARE TRÊN ANDROID \par
+    \endgroup
+    
+    \vspace*{1.5cm} 
+
+    % --- Thông tin ---
+    \begin{table}[h]
+        \centering
+        % Set font in đậm cho cả bảng
+        \bfseries 
+        \begin{tabular}{ll}
+            \multicolumn{2}{l}{\large GIÁO VIÊN HƯỚNG DẪN:} \\
+            & \large Thầy Trương Quang Tuấn \\[0.6cm] 
+            
+            \multicolumn{2}{l}{\large SINH VIÊN THỰC HIỆN:} \\
+            \large 1. Đào Vũ Dũng & \large MSSV: 0672 0500 1514 \\
+            \large 2. Nguyễn Quốc Thiện & \large MSSV: 0642 0500 4659\\
+            \large 3. Phạm Công Hoàng & \large MSSV: 0642 0500 4128 \\
+            
+            \multicolumn{2}{l}{\vspace{0.3cm}} \\ 
+            \multicolumn{2}{l}{\large Mã Học Phần: 010112103401} 
+        \end{tabular}
+    \end{table}
+
+    \vfill 
+
+    % --- Ngày tháng ---
+    {\large \bfseries TP. HỒ CHÍ MINH, NĂM 2025}
+
+    \vspace*{1cm} 
+\end{center}
